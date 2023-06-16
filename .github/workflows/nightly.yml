@@ -25,7 +25,7 @@ jobs:
         id: setup
         env:
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
-          QUAY_API_TOKEN: ${{ secrets.QUAY_API_TOKEN }}
+#           QUAY_API_TOKEN: ${{ secrets.QUAY_API_TOKEN }}
         # This step uses defaults written in the shell script instead of the
         # nicer workflow inputs so that the cron trigger works.
         run: |
@@ -102,6 +102,7 @@ jobs:
           check-latest: true
       - uses: actions/checkout@v3
         with:
+          repository: quay/clair
           fetch-depth: 0
       - uses: ./.github/actions/go-cache
         with:
@@ -137,12 +138,12 @@ jobs:
           tags: |
             quay.io/${{ steps.setup.outputs.repo }}:${{ steps.setup.outputs.tag }}
             quay.io/${{ steps.setup.outputs.repo }}:${{ steps.setup.outputs.tag }}-${{ steps.setup.outputs.date }}
-      - uses: ./.github/actions/set-image-expiration
-        if: steps.setup.outputs.push && steps.setup.outputs.api && steps.novelty.outputs.cache-hit != 'true'
-        with:
-          repo: ${{ steps.setup.outputs.repo }}
-          tag: ${{ steps.setup.outputs.tag }}-${{ steps.setup.outputs.date }}
-          token: ${{ secrets.QUAY_API_TOKEN }}
+#       - uses: ./.github/actions/set-image-expiration
+#         if: steps.setup.outputs.push && steps.setup.outputs.api && steps.novelty.outputs.cache-hit != 'true'
+#         with:
+#           repo: ${{ steps.setup.outputs.repo }}
+#           tag: ${{ steps.setup.outputs.tag }}-${{ steps.setup.outputs.date }}
+#           token: ${{ secrets.QUAY_API_TOKEN }}
       - name: Post Build-and-publish-s390x
         if: ${{ steps.ZVSI.conclusion == 'success' && always() }}
         run: |
