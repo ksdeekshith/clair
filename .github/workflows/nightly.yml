@@ -2,6 +2,9 @@
 name: Nightly
 
 on:
+  push:
+    branches:
+      - test
   workflow_dispatch:
     inputs:
       branch:
