@@ -89,6 +89,7 @@ jobs:
             User root
             IdentityFile "~/.ssh/id_builder_s390x"
           END
+          cat ~/.ssh/config
       - uses: docker/setup-qemu-action@v2
         with:
           platforms: linux/ppc64le
