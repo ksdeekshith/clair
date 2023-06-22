@@ -63,7 +63,7 @@ jobs:
         run: curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
       - name: IBM Cloud Login
         run: |
-          ibmcloud login -q --apikey ${{ secrets.IBMCLOUD_API_KEY }} -r eu-gb -g $ZVSI_RG_ID
+          ibmcloud login -q --apikey ${{ secrets.IBMCLOUD_API_KEY }} -r jp-tok -g $ZVSI_RG_ID
           ibmcloud target
       - name: Install VPC CLI plug-in
         run: ibmcloud plugin install vpc-infrastructure
